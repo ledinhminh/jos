@@ -1,0 +1,107 @@
+/lib/ld-linux.so.2
+__gmon_start__
+libc.so.6
+_IO_stdin_used
+socket
+cuserid
+fflush
+__printf_chk
+exit
+fopen
+__isoc99_sscanf
+connect
+signal
+__stack_chk_fail
+stdin
+inet_pton
+rewind
+strtol
+fgets
+tmpfile
+__errno_location
+__fprintf_chk
+stdout
+fclose
+__memmove_chk
+getenv
+__ctype_b_loc
+system
+gethostbyname
+sleep
+__strcpy_chk
+__sprintf_chk
+__strcat_chk
+__libc_start_main
+write
+GLIBC_2.4
+GLIBC_2.3
+GLIBC_2.1
+GLIBC_2.7
+GLIBC_2.3.4
+GLIBC_2.0
+PTRh
+QVhd
+\[^_]
+0[^]
+ [^]
+[^_]
+[^_]
+nobof
+[^_]
+nobof
+[^_]
+<[^_]
+[^_]
+%s: Error: Couldn't open %s
+Usage: %s [<input_file>]
+Halfway there!
+Welcome to my fiendish little bomb. You have 6 phases with
+which to blow yourself up. Have a nice day!
+Phase 1 defused. How about the next one?
+That's number 2.  Keep going!
+So you got that one.  Try this one.
+Good work!  On to the next...
+Wow! You've defused the secret stage!
+When I get angry, Mr. Bigglesworth gets upset.
+%d %c %d
+Invalid phase%s
+Well...
+OK. :-)
+ERROR: dup(0) error
+ERROR: close error
+ERROR: tmpfile error
+Subject: Bomb notification
+exploded
+defused
+bomb-header:%s:%d:%s:%s:%d
+bomb-string:%s:%d:%s:%d:%s
+localhost
+bomb
+/usr/sbin/sendmail -bm
+%s %s@%s
+ERROR: notification error
+ERROR: fclose(tmp) error
+ERROR: dup(tmpstdin) error
+ERROR: close(tmpstdin)
+socket error
+202.120.40.188
+connect error
+socket write error
+%d %s
+austinpowers
+BOOM!!!
+The bomb has blown up.
+%d %d %d %d %d %d
+GRADE_BOMB
+Error: Input line too long
+Bad host (1).
+Bad host (2).
+%s is a bad host (3).
+So you think you can stop the bomb with ctrl-c, do you?
+Curses, you've found the secret phase!
+But finding it and solving it are quite different...
+Congratulations! You've defused the bomb!
+Your instructor has been notified and will verify your solution.
+Your instructor has been notified.
+Error: Premature EOF on stdin
+AOSILab1

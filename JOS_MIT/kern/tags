@@ -1,0 +1,235 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ALLOC_ZERO	pmap.h	/^	ALLOC_ZERO = 1<<0,$/;"	e	enum:__anon2
+ALT	console.c	218;"	d	file:
+C	console.c	285;"	d	file:
+CAPSLOCK	console.c	220;"	d	file:
+CGA_BASE	console.h	13;"	d
+CGA_BUF	console.h	14;"	d
+CHECKSUM	entry.S	/^#define CHECKSUM (-(MULTIBOOT_HEADER_MAGIC + MULTIBOOT_HEADER_FLAGS))$/;"	d
+CMDBUF_SIZE	monitor.c	16;"	d	file:
+COM1	console.c	26;"	d	file:
+COM_DLL	console.c	30;"	d	file:
+COM_DLM	console.c	31;"	d	file:
+COM_FCR	console.c	35;"	d	file:
+COM_IER	console.c	32;"	d	file:
+COM_IER_RDI	console.c	33;"	d	file:
+COM_IIR	console.c	34;"	d	file:
+COM_LCR	console.c	36;"	d	file:
+COM_LCR_DLAB	console.c	37;"	d	file:
+COM_LCR_WLEN8	console.c	38;"	d	file:
+COM_LSR	console.c	43;"	d	file:
+COM_LSR_DATA	console.c	44;"	d	file:
+COM_LSR_TSRE	console.c	46;"	d	file:
+COM_LSR_TXRDY	console.c	45;"	d	file:
+COM_MCR	console.c	39;"	d	file:
+COM_MCR_DTR	console.c	41;"	d	file:
+COM_MCR_OUT2	console.c	42;"	d	file:
+COM_MCR_RTS	console.c	40;"	d	file:
+COM_RX	console.c	28;"	d	file:
+COM_TX	console.c	29;"	d	file:
+CONSBUFSIZE	console.c	381;"	d	file:
+CRT_COLS	console.h	17;"	d
+CRT_ROWS	console.h	16;"	d
+CRT_SIZE	console.h	18;"	d
+CTL	console.c	217;"	d	file:
+Command	monitor.c	/^struct Command {$/;"	s	file:
+E0ESC	console.c	224;"	d	file:
+ENVGENSHIFT	env.c	20;"	d	file:
+ENV_CREATE	env.h	28;"	d
+ENV_PASTE3	env.h	26;"	d
+Eipdebuginfo	kdebug.h	/^struct Eipdebuginfo {$/;"	s
+IO_RTC	kclock.h	9;"	d
+JOS_KERN_ENV_H	env.h	4;"	d
+JOS_KERN_KCLOCK_H	kclock.h	4;"	d
+JOS_KERN_KDEBUG_H	kdebug.h	2;"	d
+JOS_KERN_MONITOR_H	monitor.h	2;"	d
+JOS_KERN_PMAP_H	pmap.h	4;"	d
+JOS_KERN_SYSCALL_H	syscall.h	2;"	d
+JOS_KERN_TRAP_H	trap.h	4;"	d
+KADDR	pmap.h	38;"	d
+MAXARGS	monitor.c	145;"	d	file:
+MC_NVRAM_SIZE	kclock.h	12;"	d
+MC_NVRAM_START	kclock.h	11;"	d
+MONO_BASE	console.h	11;"	d
+MONO_BUF	console.h	12;"	d
+MULTIBOOT_HEADER_FLAGS	entry.S	/^#define MULTIBOOT_HEADER_FLAGS (0)$/;"	d
+MULTIBOOT_HEADER_MAGIC	entry.S	/^#define MULTIBOOT_HEADER_MAGIC (0x1BADB002)$/;"	d
+NCOMMANDS	monitor.c	31;"	d	file:
+NO	console.c	214;"	d	file:
+NUMLOCK	console.c	221;"	d	file:
+NVRAM_BASEHI	kclock.h	16;"	d
+NVRAM_BASELO	kclock.h	15;"	d
+NVRAM_CENTURY	kclock.h	27;"	d
+NVRAM_EXTHI	kclock.h	20;"	d
+NVRAM_EXTLO	kclock.h	19;"	d
+NVRAM_PEXTHI	kclock.h	24;"	d
+NVRAM_PEXTLO	kclock.h	23;"	d
+PADDR	pmap.h	26;"	d
+RELOC	entry.S	/^#define	RELOC(x) ((x) - KERNBASE)$/;"	d
+SCROLLLOCK	console.c	222;"	d	file:
+SHIFT	console.c	216;"	d	file:
+SRL	entry.S	/^#define SRL(val, shamt)		(((val) >> (shamt)) & ~(-1 << (32 - (shamt))))$/;"	d
+TRAPHANDLER	trapentry.S	/^#define TRAPHANDLER(name, num)						\\$/;"	d
+TRAPHANDLER_NOEC	trapentry.S	/^#define TRAPHANDLER_NOEC(name, num)					\\$/;"	d
+UserStabData	kdebug.c	/^struct UserStabData {$/;"	s	file:
+WHITESPACE	monitor.c	144;"	d	file:
+_CONSOLE_H_	console.h	4;"	d
+_alltraps	trapentry.S	/^_alltraps:$/;"	l
+_kaddr	pmap.h	/^_kaddr(const char *file, int line, physaddr_t pa)$/;"	f
+_paddr	pmap.h	/^_paddr(const char *file, int line, void *kva)$/;"	f
+_panic	init.c	/^_panic(const char *file, int line, const char *fmt,...)$/;"	f
+_start	entry.S	/^_start = RELOC(entry)$/;"	d
+_warn	init.c	/^_warn(const char *file, int line, const char *fmt,...)$/;"	f
+addr_6845	console.c	/^static unsigned addr_6845;$/;"	v	file:
+boot_alloc	pmap.c	/^boot_alloc(uint32_t n)$/;"	f	file:
+boot_map_region	pmap.c	/^boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)$/;"	f	file:
+bootstack	entry.S	/^bootstack:$/;"	l
+bootstacktop	entry.S	/^bootstacktop:$/;"	l
+buf	console.c	/^	uint8_t buf[CONSBUFSIZE];$/;"	m	struct:__anon1	file:
+cga_init	console.c	/^cga_init(void)$/;"	f	file:
+cga_putc	console.c	/^cga_putc(int c)$/;"	f	file:
+charcode	console.c	/^static uint8_t *charcode[4] = {$/;"	v	file:
+check_continuous	pmap.c	/^check_continuous(struct Page *pp)$/;"	f	file:
+check_four_pages	pmap.c	/^check_four_pages(void)$/;"	f	file:
+check_kern_pgdir	pmap.c	/^check_kern_pgdir(void)$/;"	f	file:
+check_page	pmap.c	/^check_page(void)$/;"	f	file:
+check_page_alloc	pmap.c	/^check_page_alloc(void)$/;"	f	file:
+check_page_free_list	pmap.c	/^check_page_free_list(bool only_low_memory)$/;"	f	file:
+check_page_installed_pgdir	pmap.c	/^check_page_installed_pgdir(void)$/;"	f	file:
+check_va2pa	pmap.c	/^check_va2pa(pde_t *pgdir, uintptr_t va)$/;"	f	file:
+chunck_list	pmap.c	/^static struct Page chunck_list;$/;"	v	typeref:struct:Page	file:
+commands	monitor.c	/^static struct Command commands[] = {$/;"	v	typeref:struct:Command	file:
+cons	console.c	/^} cons;$/;"	v	typeref:struct:__anon1	file:
+cons_getc	console.c	/^cons_getc(void)$/;"	f
+cons_init	console.c	/^cons_init(void)$/;"	f
+cons_intr	console.c	/^cons_intr(int (*proc)(void))$/;"	f	file:
+cons_putc	console.c	/^cons_putc(int c)$/;"	f	file:
+cprintf	printf.c	/^cprintf(const char *fmt, ...)$/;"	f
+cputchar	console.c	/^cputchar(int c)$/;"	f
+crt_buf	console.c	/^static uint16_t *crt_buf;$/;"	v	file:
+crt_pos	console.c	/^static uint16_t crt_pos;$/;"	v	file:
+ctlmap	console.c	/^static uint8_t ctlmap[256] = $/;"	v	file:
+curenv	env.c	/^struct Env *curenv = NULL;		\/\/ The current env$/;"	v	typeref:struct:Env
+debuginfo_eip	kdebug.c	/^debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info)$/;"	f
+delay	console.c	/^delay(void)$/;"	f	file:
+desc	monitor.c	/^	const char *desc;$/;"	m	struct:Command	file:
+do_overflow	monitor.c	/^do_overflow(void)$/;"	f
+eip_file	kdebug.h	/^	const char *eip_file;		\/\/ Source code filename for EIP$/;"	m	struct:Eipdebuginfo
+eip_fn_addr	kdebug.h	/^	uintptr_t eip_fn_addr;		\/\/ Address of start of function$/;"	m	struct:Eipdebuginfo
+eip_fn_name	kdebug.h	/^	const char *eip_fn_name;	\/\/ Name of function containing EIP$/;"	m	struct:Eipdebuginfo
+eip_fn_namelen	kdebug.h	/^	int eip_fn_namelen;		\/\/ Length of function name$/;"	m	struct:Eipdebuginfo
+eip_fn_narg	kdebug.h	/^	int eip_fn_narg;		\/\/ Number of function arguments$/;"	m	struct:Eipdebuginfo
+eip_line	kdebug.h	/^	int eip_line;			\/\/ Source code linenumber for EIP$/;"	m	struct:Eipdebuginfo
+entry	entry.S	/^entry:$/;"	l
+entry_pgdir	entrypgdir.c	/^pde_t entry_pgdir[NPDENTRIES] = {$/;"	v
+entry_pgtable	entrypgdir.c	/^pte_t entry_pgtable[NPTENTRIES] = {$/;"	v
+entry_pgtable	entrypgdir.c	/^pte_t entry_pgtable[NPTENTRIES];$/;"	v
+env_alloc	env.c	/^env_alloc(struct Env **newenv_store, envid_t parent_id)$/;"	f
+env_create	env.c	/^env_create(uint8_t *binary, size_t size, enum EnvType type)$/;"	f
+env_destroy	env.c	/^env_destroy(struct Env *e)$/;"	f
+env_free	env.c	/^env_free(struct Env *e)$/;"	f
+env_free_list	env.c	/^static struct Env *env_free_list;	\/\/ Free environment list$/;"	v	typeref:struct:Env	file:
+env_init	env.c	/^env_init(void)$/;"	f
+env_init_percpu	env.c	/^env_init_percpu(void)$/;"	f
+env_pop_tf	env.c	/^env_pop_tf(struct Trapframe *tf)$/;"	f
+env_run	env.c	/^env_run(struct Env *e)$/;"	f
+env_setup_vm	env.c	/^env_setup_vm(struct Env *e)$/;"	f	file:
+envid2env	env.c	/^envid2env(envid_t envid, struct Env **env_store, bool checkperm)$/;"	f
+envs	env.c	/^struct Env *envs = NULL;		\/\/ All environments$/;"	v	typeref:struct:Env
+func	monitor.c	/^	int (*func)(int argc, char** argv, struct Trapframe* tf);$/;"	m	struct:Command	file:
+gdt	env.c	/^struct Segdesc gdt[] =$/;"	v	typeref:struct:Segdesc
+gdt_pd	env.c	/^struct Pseudodesc gdt_pd = {$/;"	v	typeref:struct:Pseudodesc
+getchar	console.c	/^getchar(void)$/;"	f
+handlers	trapentry.S	/^handlers:$/;"	l
+i386_detect_memory	pmap.c	/^i386_detect_memory(void)$/;"	f	file:
+i386_init	init.c	/^i386_init(void)$/;"	f
+idt	trap.c	/^struct Gatedesc idt[256] = { { 0 } };$/;"	v	typeref:struct:Gatedesc
+idt_pd	trap.c	/^struct Pseudodesc idt_pd = {$/;"	v	typeref:struct:Pseudodesc
+iscons	console.c	/^iscons(int fdnum)$/;"	f
+kbd_init	console.c	/^kbd_init(void)$/;"	f	file:
+kbd_intr	console.c	/^kbd_intr(void)$/;"	f
+kbd_proc_data	console.c	/^kbd_proc_data(void)$/;"	f	file:
+kern_pgdir	pmap.c	/^pde_t *kern_pgdir;		\/\/ Kernel's initial page directory$/;"	v
+last_tf	trap.c	/^static struct Trapframe *last_tf;$/;"	v	typeref:struct:Trapframe	file:
+load_icode	env.c	/^load_icode(struct Env *e, uint8_t *binary, size_t size)$/;"	f	file:
+lpt_putc	console.c	/^lpt_putc(int c)$/;"	f	file:
+mc146818_read	kclock.c	/^mc146818_read(unsigned reg)$/;"	f
+mc146818_write	kclock.c	/^mc146818_write(unsigned reg, unsigned datum)$/;"	f
+mem_init	pmap.c	/^mem_init(void)$/;"	f
+mon_backtrace	monitor.c	/^mon_backtrace(int argc, char **argv, struct Trapframe *tf)$/;"	f
+mon_help	monitor.c	/^mon_help(int argc, char **argv, struct Trapframe *tf)$/;"	f
+mon_kerninfo	monitor.c	/^mon_kerninfo(int argc, char **argv, struct Trapframe *tf)$/;"	f
+monitor	monitor.c	/^monitor(struct Trapframe *tf)$/;"	f
+name	monitor.c	/^	const char *name;$/;"	m	struct:Command	file:
+name	trapentry.S	/^	name:								\\$/;"	l
+name	trapentry.S	/^	name:			\/* function starts here *\/		\\$/;"	l
+normalmap	console.c	/^static uint8_t normalmap[256] =$/;"	v	file:
+npages	pmap.c	/^size_t npages;			\/\/ Amount of physical memory (in pages)$/;"	v
+npages_basemem	pmap.c	/^static size_t npages_basemem;	\/\/ Amount of base memory (in pages)$/;"	v	file:
+nvram_read	pmap.c	/^nvram_read(int r)$/;"	f	file:
+overflow_me	monitor.c	/^overflow_me(void)$/;"	f
+pa2page	pmap.h	/^pa2page(physaddr_t pa)$/;"	f
+page2kva	pmap.h	/^page2kva(struct Page *pp)$/;"	f
+page2pa	pmap.h	/^page2pa(struct Page *pp)$/;"	f
+page_alloc	pmap.c	/^page_alloc(int alloc_flags)$/;"	f
+page_alloc_4pages	pmap.c	/^page_alloc_4pages(int alloc_flags)$/;"	f
+page_decref	pmap.c	/^page_decref(struct Page* pp)$/;"	f
+page_fault_handler	trap.c	/^page_fault_handler(struct Trapframe *tf)$/;"	f
+page_free	pmap.c	/^page_free(struct Page *pp)$/;"	f
+page_free_4pages	pmap.c	/^page_free_4pages(struct Page *pp)$/;"	f
+page_free_list	pmap.c	/^static struct Page *page_free_list;	\/\/ Free list of physical pages$/;"	v	typeref:struct:Page	file:
+page_init	pmap.c	/^page_init(void)$/;"	f
+page_insert	pmap.c	/^page_insert(pde_t *pgdir, struct Page *pp, void *va, int perm)$/;"	f
+page_lookup	pmap.c	/^page_lookup(pde_t *pgdir, void *va, pte_t **pte_store)$/;"	f
+page_remove	pmap.c	/^page_remove(pde_t *pgdir, void *va)$/;"	f
+pages	pmap.c	/^struct Page *pages;		\/\/ Physical page state array$/;"	v	typeref:struct:Page
+panicstr	init.c	/^const char *panicstr;$/;"	v
+pgdir_walk	pmap.c	/^pgdir_walk(pde_t *pgdir, const void *va, int create)$/;"	f
+print_regs	trap.c	/^print_regs(struct PushRegs *regs)$/;"	f
+print_trapframe	trap.c	/^print_trapframe(struct Trapframe *tf)$/;"	f
+putch	printf.c	/^putch(int ch, int *cnt)$/;"	f	file:
+read_eip	monitor.c	/^read_eip()$/;"	f
+read_pretaddr	monitor.c	/^read_pretaddr() {$/;"	f	file:
+region_alloc	env.c	/^region_alloc(struct Env *e, void *va, size_t len)$/;"	f	file:
+relocated	entry.S	/^relocated:$/;"	l
+rpos	console.c	/^	uint32_t rpos;$/;"	m	struct:__anon1	file:
+runcmd	monitor.c	/^runcmd(char *buf, struct Trapframe *tf)$/;"	f	file:
+serial_exists	console.c	/^static bool serial_exists;$/;"	v	file:
+serial_init	console.c	/^serial_init(void)$/;"	f	file:
+serial_intr	console.c	/^serial_intr(void)$/;"	f
+serial_proc_data	console.c	/^serial_proc_data(void)$/;"	f	file:
+serial_putc	console.c	/^serial_putc(int c)$/;"	f	file:
+shiftcode	console.c	/^static uint8_t shiftcode[256] = $/;"	v	file:
+shiftmap	console.c	/^static uint8_t shiftmap[256] = $/;"	v	file:
+spin	entry.S	/^spin:	jmp	spin$/;"	l
+stab_binsearch	kdebug.c	/^stab_binsearch(const struct Stab *stabs, int *region_left, int *region_right,$/;"	f	file:
+stab_end	kdebug.c	/^	const struct Stab *stab_end;$/;"	m	struct:UserStabData	typeref:struct:UserStabData::Stab	file:
+stabs	kdebug.c	/^	const struct Stab *stabs;$/;"	m	struct:UserStabData	typeref:struct:UserStabData::Stab	file:
+stabstr	kdebug.c	/^	const char *stabstr;$/;"	m	struct:UserStabData	file:
+stabstr_end	kdebug.c	/^	const char *stabstr_end;$/;"	m	struct:UserStabData	file:
+start_overflow	monitor.c	/^start_overflow(void)$/;"	f
+sys_cgetc	syscall.c	/^sys_cgetc(void)$/;"	f	file:
+sys_cputs	syscall.c	/^sys_cputs(const char *s, size_t len)$/;"	f	file:
+sys_env_destroy	syscall.c	/^sys_env_destroy(envid_t envid)$/;"	f	file:
+sys_getenvid	syscall.c	/^sys_getenvid(void)$/;"	f	file:
+sys_map_kernel_page	syscall.c	/^sys_map_kernel_page(void* kpage, void* va)$/;"	f	file:
+syscall	syscall.c	/^syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5)$/;"	f
+sysenter_handler	trapentry.S	/^sysenter_handler:$/;"	l
+tlb_invalidate	pmap.c	/^tlb_invalidate(pde_t *pgdir, void *va)$/;"	f
+togglecode	console.c	/^static uint8_t togglecode[256] = $/;"	v	file:
+trap	trap.c	/^trap(struct Trapframe *tf)$/;"	f
+trap_dispatch	trap.c	/^trap_dispatch(struct Trapframe *tf)$/;"	f	file:
+trap_init	trap.c	/^trap_init(void)$/;"	f
+trap_init_percpu	trap.c	/^trap_init_percpu(void)$/;"	f
+trapname	trap.c	/^static const char *trapname(int trapno)$/;"	f	file:
+ts	trap.c	/^static struct Taskstate ts;$/;"	v	typeref:struct:Taskstate	file:
+user_mem_assert	pmap.c	/^user_mem_assert(struct Env *env, const void *va, size_t len, int perm)$/;"	f
+user_mem_check	pmap.c	/^user_mem_check(struct Env *env, const void *va, size_t len, int perm)$/;"	f
+user_mem_check_addr	pmap.c	/^static uintptr_t user_mem_check_addr;$/;"	v	file:
+vcprintf	printf.c	/^vcprintf(const char *fmt, va_list ap)$/;"	f
+wpos	console.c	/^	uint32_t wpos;$/;"	m	struct:__anon1	file:
