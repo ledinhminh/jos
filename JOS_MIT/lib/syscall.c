@@ -3,10 +3,11 @@
 #include <inc/syscall.h>
 #include <inc/lib.h>
 
-static inline int32_t
+static int32_t
 syscall(int num, int check, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5)
 {
 	int32_t ret;
+	
 	asm volatile("pushl %%ecx\n\t"
 		 "pushl %%edx\n\t"
 	         "pushl %%ebx\n\t"
@@ -16,6 +17,11 @@ syscall(int num, int check, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 		 "pushl %%edi\n\t"
 				 
                  //Lab 3: Your code here
+				
+				 "leal after_sysenter, %%esi\n\t"
+				 "movl %%esp, %%ebp\n\t"
+				 "sysenter\n\t"
+				 "after_sysenter:"
 
                  "popl %%edi\n\t"
                  "popl %%esi\n\t"
@@ -32,8 +38,8 @@ syscall(int num, int check, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
                    "b" (a3),
                    "D" (a4)
                  : "cc", "memory");
-
-
+                 
+                 
 	if(check && ret > 0)
 		panic("syscall %d returned %d (> 0)", num, ret);
 

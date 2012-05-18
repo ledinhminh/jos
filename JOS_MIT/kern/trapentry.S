@@ -64,26 +64,28 @@ TRAPHANDLER_NOEC(trap_ex_fp_error, T_FPERR)
 TRAPHANDLER(trap_ex_align, T_ALIGN)
 TRAPHANDLER_NOEC(trap_ex_mcheck, T_MCHK)
 TRAPHANDLER_NOEC(trap_ex_simderr, T_SIMDERR)
-TRAPHANDLER_NOEC(trap_ex_syscall, T_SYSCALL)
- 
-#.globl sysenter_handler;
-#.type sysenter_handler, @function;
-#.align 2;
-#sysenter_handler:
-#	pushl $0x0 /* parameters to syscall */
-#	pushl %edi
-#	pushl %ebx
-#	pushl %ecx
-#	pushl %edx
-#	pushl %eax
-#	call syscall
-#	addl $0x18, %esp /* kill all the parameters */
-#	movl %esi, %edx
-#	movl %ebp, %ecx
-#	sysexit
+/* TRAPHANDLER_NOEC(trap_ex_syscall, T_SYSCALL)
+*/
+
 /*
  * Lab 3: Your code here for system call handling
  */
+.globl sysenter_handler;
+.type sysenter_handler, @function;
+.align 2;
+sysenter_handler:
+	pushl $0x0 /* parameters to syscall */
+	pushl %edi
+	pushl %ebx
+	pushl %ecx
+	pushl %edx
+	pushl %eax
+	call syscall
+	addl $0x18, %esp /* kill all the parameters */
+	movl %esi, %edx
+	movl %ebp, %ecx
+	sysexit
+
 
 
 /*

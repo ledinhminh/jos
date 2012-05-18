@@ -63,7 +63,8 @@ void
 trap_init(void)
 {
 	extern struct Segdesc gdt[];
-
+	extern void sysenter_handler();
+//	extern asmlinkage void sysenter_handler(void);
 	// LAB 3: Your code here.
 	SETGATE(idt[T_DIVIDE], 0, GD_KT, trap_ex_divide, 0)
 	SETGATE(idt[T_DEBUG], 0, GD_KT, trap_ex_debug, 0)
@@ -83,16 +84,20 @@ trap_init(void)
 	SETGATE(idt[T_ALIGN], 0, GD_KT, trap_ex_align, 0)
 	SETGATE(idt[T_MCHK], 0, GD_KT, trap_ex_mcheck, 0)
 	SETGATE(idt[T_SIMDERR], 0, GD_KT, trap_ex_simderr, 0)
-	SETGATE(idt[T_SYSCALL], 0, GD_KT, trap_ex_syscall, 3)
+	SETGATE(idt[T_SYSCALL], 0, GD_KT, sysenter_handler, 3)
 	  	// istrap=1 means interrupt can re-enter an interrupt(not masked)
   	// dpl=3 means software can use "int 0x." instruction to invoke interrupt
 //  	SETGATE(idt[T_BRKPT], 0, GD_KT, handlers[T_BRKPT], 3); //breakpoint
 //  	SETGATE(idt[T_SYSCALL], 0, GD_KT, handlers[T_SYSCALL], 3); //syscall
 
   	// shall I change gate for INTR?
+	wrmsr(0x174, GD_KT, 0);		/* SYSENTER_CS_MSR */
+	wrmsr(0x175, KSTACKTOP, 0);	/* SYSENTER_ESP_MSR */
+	wrmsr(0x176, (uint32_t)sysenter_handler, 0);
 
   	// Per-CPU setup
 	trap_init_percpu();
+	
 }
 
 // Initialize and load the per-CPU TSS and IDT
