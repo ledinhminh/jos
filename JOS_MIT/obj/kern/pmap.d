@@ -1,0 +1,4 @@
+obj/kern/pmap.o: kern/pmap.c inc/x86.h inc/types.h inc/mmu.h inc/error.h \
+ inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h inc/queue.h \
+ kern/pmap.h inc/memlayout.h kern/kclock.h kern/env.h inc/env.h \
+ inc/trap.h kern/cpu.h

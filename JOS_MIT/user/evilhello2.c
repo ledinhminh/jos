@@ -5,7 +5,7 @@
 #include <inc/mmu.h>
 #include <inc/x86.h>
 
-
+char tmp[2*PGSIZE];
 // Call this function with ring0 privilege
 void evil()
 {
@@ -49,14 +49,37 @@ void ring0_call(void (*fun_ptr)(void)) {
     //        file if necessary.
 
     // Lab3 : Your Code Here
+    //1
+    struct Pseudodesc lgdtcopy;
+    sgdt(&lgdtcopy);
+    //2
+    sys_map_kernel_page((void*)(lgdtcopy.pd_base),(void*)&tmp[PGSIZE]);
+    //3
+    struct Gatedesc* gatedesc = &(((struct Gatedesc*)(
+									(lgdtcopy.pd_base - ROUNDDOWN(lgdtcopy.pd_base,PGSIZE)) + ROUNDDOWN((&tmp[PGSIZE]),PGSIZE)
+									))
+									[3]
+								);
+    struct Gatedesc  savegate = *gatedesc;
+    SETCALLGATE(*gatedesc,GD_KT,0x8000e5,3);
+    //4
+    __asm __volatile("lcall $0x1b,$0\n");
+    //5
+    fun_ptr();
+    //6
+    *gatedesc = savegate;
+    //7
+    __asm __volatile("lret \n");
+    return;
+    
 }
 
 void
 umain(int argc, char **argv)
 {
         // call the evil function in ring0
-	ring0_call(&evil);
 
+	ring0_call(&evil);
 	// call the evil function in ring3
 	evil();
 }

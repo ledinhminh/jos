@@ -26,6 +26,15 @@ static const char * const error_string[MAXERROR] =
 	[E_NO_MEM]	= "out of memory",
 	[E_NO_FREE_ENV]	= "out of environments",
 	[E_FAULT]	= "segmentation fault",
+	[E_IPC_NOT_RECV]= "env is not recving",
+	[E_EOF]		= "unexpected end of file",
+	[E_NO_DISK]	= "no free space on disk",
+	[E_MAX_OPEN]	= "too many files are open",
+	[E_NOT_FOUND]	= "file or block not found",
+	[E_BAD_PATH]	= "invalid path",
+	[E_FILE_EXISTS]	= "file already exists",
+	[E_NOT_EXEC]	= "file is not a valid executable",
+	[E_NOT_SUPP]	= "operation not supported",
 };
 
 /*
@@ -206,13 +215,13 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 		// (unsigned) octal
 		case 'o':
 			// Replace this with your code.
-			/* putch('X', putdat); */
-			/* putch('X', putdat); */
-			/* putch('X', putdat); */
-		  num = getuint(&ap, lflag);
-		  base = 8;
-		  goto number;
-			break;
+			// putch('X', putdat);
+			// putch('X', putdat);
+			// putch('X', putdat);
+			num = getuint(&ap, lflag);
+			base = 8;
+			goto number;
+			
 
 		// pointer
 		case 'p':
@@ -239,7 +248,7 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
             // Requirements:
             // Nothing printed. The argument must be a pointer to a signed char, 
             // where the number of characters written so far is stored.
-            //
+            //b
 
             // hint:  use the following strings to display the error messages 
             //        when the cprintf function ecounters the specific cases,
@@ -252,20 +261,20 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
             const char *overflow_error = "\nwarning! The value %n argument pointed to has been overflowed!\n";
 
             // Your code here
-			int i = 0;
-			char *pch;
-			if ((pch = va_arg(ap, char *)) == NULL) {
-				for (i= 0; i < strlen(null_error);i++)
-					putch(null_error[i], putdat);
-			} else {
-				if (*(int *)putdat > 127) {
-					*pch = 127;
-					for (i = 0; i < strlen(overflow_error); i++)
-						putch(overflow_error[i], putdat);
-				} else {
-					*pch = *(int *)putdat;
-				}
-			}
+		if ((p = va_arg(ap, void *)) == NULL)
+		{		
+			printfmt(putch, putdat, "%s", null_error);
+			break;
+		}		
+		if( (*(int *)putdat) > 127)
+		{
+			(*((unsigned char *)p)) = (*((unsigned char *)putdat));
+			printfmt(putch, putdat, "%s", overflow_error);			
+			break;
+		}
+
+		(*((char *)p)) = (*((char *)putdat));		
+
             break;
         }
 

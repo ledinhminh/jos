@@ -29,15 +29,15 @@
 #define T_SYSCALL   48		// system call
 #define T_DEFAULT   500		// catchall
 
-//#define IRQ_OFFSET	32	// IRQ 0 corresponds to int IRQ_OFFSET
+#define IRQ_OFFSET	32	// IRQ 0 corresponds to int IRQ_OFFSET
 
 // Hardware IRQ numbers. We receive these as (IRQ_OFFSET+IRQ_WHATEVER)
-//#define IRQ_TIMER        0
-//#define IRQ_KBD          1
-//#define IRQ_SERIAL       4
-//#define IRQ_SPURIOUS     7
-//#define IRQ_IDE         14
-//#define IRQ_ERROR       19
+#define IRQ_TIMER        0
+#define IRQ_KBD          1
+#define IRQ_SERIAL       4
+#define IRQ_SPURIOUS     7
+#define IRQ_IDE         14
+#define IRQ_ERROR       19
 
 #ifndef __ASSEMBLER__
 
@@ -74,6 +74,17 @@ struct Trapframe {
 	uint16_t tf_padding4;
 } __attribute__((packed));
 
+struct UTrapframe {
+	/* information about the fault */
+	uint32_t utf_fault_va;	/* va for T_PGFLT, 0 otherwise */
+	uint32_t utf_err;
+	/* trap-time return state */
+	struct PushRegs utf_regs;
+	uintptr_t utf_eip;
+	uint32_t utf_eflags;
+	/* the trap-time stack to return to */
+	uintptr_t utf_esp;
+} __attribute__((packed));
 
 #endif /* !__ASSEMBLER__ */
 
