@@ -124,13 +124,11 @@ spawn(const char *prog, const char **argv)
 	close(fd);
 	fd = -1;
 
-  //Problem here!
 	if ((r = sys_env_set_trapframe(child, &child_tf)) < 0)
 		panic("sys_env_set_trapframe: %e", r);
 
 	if ((r = sys_env_set_status(child, ENV_RUNNABLE)) < 0)
 		panic("sys_env_set_status: %e", r);
-
 	return child;
 
 error:

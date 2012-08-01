@@ -11,9 +11,9 @@ umain(int argc, char **argv)
 	cprintf("icode startup\n");
 
 	cprintf("icode: open /motd\n");
-	if ((fd = open("/motd", O_RDONLY)) < 0) {
+	if ((fd = open("/motd", O_RDONLY)) < 0)
 		panic("icode: open /motd: %e", fd);
-  }
+
 	cprintf("icode: read /motd\n");
 	while ((n = read(fd, buf, sizeof buf-1)) > 0)
 		sys_cputs(buf, n);
@@ -22,8 +22,8 @@ umain(int argc, char **argv)
 	close(fd);
 
 	cprintf("icode: spawn /init\n");
-	if ((r = spawnl("/init", "init", "initarg1", "initarg2", (char*)0)) < 0) {
+	if ((r = spawnl("/init", "init", "initarg1", "initarg2", (char*)0)) < 0)
 		panic("icode: spawn /init: %e", r);
-  }
+
 	cprintf("icode: exiting\n");
 }

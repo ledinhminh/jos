@@ -22,7 +22,7 @@ pgfault(struct UTrapframe *utf)
 	// Hint:
 	//   Use the read-only page table mappings at vpt
 	//   (see <inc/memlayout.h>).
-	cprintf("pgfault: do page fault here %x\n",utf->utf_eflags);
+	//cprintf("pgfault: do page fault here %x\n",utf->utf_eflags);
 	// LAB 4: Your code here.
 	if((err & FEC_WR) == 0)
 		panic("pgfault: fault is not a write (err: %08x va: %08x ip: %08x)",err, addr, utf->utf_eip);
@@ -44,7 +44,7 @@ pgfault(struct UTrapframe *utf)
 		panic ("pgfault: page mapping failed : %e", r);
 	if((r = sys_page_unmap(0,PFTEMP)) < 0)
 		panic("pgfault: page unmapping failed : %e", r);
-	cprintf("pgfault: finish\n");
+	//cprintf("pgfault: finish\n");
 	/* int gaga = 0; */
 	/* __asm__ volatile("movl %%esp, %0\n\t" */
 	/* 		 :"=r"(gaga) */

@@ -505,7 +505,6 @@ env_pop_tf(struct Trapframe *tf)
 	{
 		unlock_kernel();
 		//print_trapframe(tf);
-    //if (curenv->env_id == 0x1009)
 		//cprintf("%s:env_pop_tf[%d]: sysexit [%x] with  %x\n", __FILE__, __LINE__, curenv->env_id,curenv->env_tf.tf_regs.reg_eax);
 		asm volatile(
 			"sti\n\t"

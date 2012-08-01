@@ -11,7 +11,10 @@
 #include <kern/syscall.h>
 #include <kern/console.h>
 #include <kern/sched.h>
+#include <kern/time.h>
 #include <kern/spinlock.h>
+#include <kern/pci.h>
+#include <kern/e1000.h>
 
 // Print a string to the system console.
 // The string is exactly 'len' characters long.
@@ -134,6 +137,7 @@ sys_env_set_status(envid_t envid, int status)
 	if((r = envid2env(envid,&envptr,1))<0)
 		return r;
 	envptr->env_status = status;
+	print_trapframe(&envptr->env_tf);
 	return 0;
 	panic("sys_env_set_status not implemented");
 }
@@ -151,16 +155,17 @@ sys_env_set_trapframe(envid_t envid, struct Trapframe *tf)
 	// LAB 5: Your code here.
 	// Remember to check whether the user has supplied us with a good
 	// address!
-  
   struct Env *e;
-  user_mem_assert(curenv, tf, sizeof(struct Trapframe), PTE_U);
-  
-  if (envid2env(envid, &e, 1) < 0)
+  if (envid2env(envid, &e, 1) < 0) 
       return -E_BAD_ENV;
-  
+  user_mem_assert(curenv, tf, sizeof(struct Trapframe), PTE_U);
   e->env_tf = *tf;
   e->env_tf.tf_cs = GD_UT | 3;
   e->env_tf.tf_eflags |= FL_IF;
+  //sysenter/exit return
+  e->env_tf.tf_regs.reg_ecx = tf->tf_esp;
+  e->env_tf.tf_regs.reg_edx = tf->tf_eip;
+  e->env_tf.tf_regs.reg_eax = 0;
   
   return 0;
 }
@@ -293,7 +298,6 @@ sys_page_map(envid_t srcenvid, void *srcva,
 	//cprintf("kkkkkkkkkkkkkkkkkk5\n");
 	return 0;
 	
-	panic("sys_page_map not implemented");
 }
 
 // Unmap the page of memory at 'va' in the address space of 'envid'.
@@ -316,7 +320,6 @@ sys_page_unmap(envid_t envid, void *va)
 		return -E_BAD_ENV;
 	page_remove(e->env_pgdir,va);
 	return 0;
-	panic("sys_page_unmap not implemented");
 }
 
 // Try to send 'value' to the target env 'envid'.
@@ -364,9 +367,8 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
   struct Env* dste;
 	int r;
 	//envid doesn't currently exist.
-	if((r = envid2env(envid,&dste,0)) < 0) {
+	if((r = envid2env(envid,&dste,0)) < 0)
 		return -E_BAD_ENV;
-  }
 	//envid is not currently blocked in sys_ipc_recv,
 	//or another environment managed to send first.
 	if(!dste->env_ipc_recving || dste->env_ipc_from != 0)
@@ -388,7 +390,7 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 		dste->env_ipc_perm = 0;
 		
 		p = page_lookup(curenv->env_pgdir,srcva,&ptestore);
-		if( /*p == NULL ||*/ ((perm & PTE_W) >0 && !(*ptestore & PTE_W) >0)) {
+		if( p == NULL || ((perm & PTE_W) >0 && !(*ptestore & PTE_W) >0)) {
  			return -E_INVAL;
     }
 		if(page_insert(dste->env_pgdir,p,dste->env_ipc_dstva,perm)<0)
@@ -428,6 +430,25 @@ sys_ipc_recv(void *dstva)
 	curenv->env_status = ENV_NOT_RUNNABLE;
 	sched_yield();
 	return 0;
+}
+
+// Return the current time.
+static int
+sys_time_msec(void)
+{
+	// LAB 6: Your code here.
+	return time_msec();
+	panic("sys_time_msec not implemented");
+}
+
+static int
+sys_net_try_send(void* data, size_t len)
+{
+        // Check the buffer address that supported by users
+        if ((uint32_t)data >= UTOP) return -E_INVAL;
+        memmove(kern_net_buf, data, len);
+
+        return E1000_transmit(kern_net_buf, len);
 }
 
 // Dispatches to the correct kernel function, passing the arguments.
@@ -470,9 +491,6 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 	case SYS_env_set_status:
 		r= sys_env_set_status((envid_t)a1,(int)a2);
 		break;
-  case SYS_env_set_trapframe:
-    r= sys_env_set_trapframe((envid_t)a1, (struct Trapframe *)a2);
-    break;
 	case SYS_page_alloc:
 		r= sys_page_alloc((envid_t)a1,(void*)a2,(int)a3);
 		break;
@@ -493,6 +511,15 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 	case SYS_ipc_try_send:
 		r = sys_ipc_try_send((envid_t)a1,a2,(void*)a3,(int)a4);
 		break;
+	case SYS_env_set_trapframe:
+		r = sys_env_set_trapframe((envid_t)a1,(struct Trapframe*)a2);
+		break;
+	case SYS_time_msec:
+		r = sys_time_msec();
+		break;
+    case SYS_net_try_send:
+        r = sys_net_try_send((void *)a1, a2);
+        break;
 	default:
 		r = -E_INVAL;
 	}

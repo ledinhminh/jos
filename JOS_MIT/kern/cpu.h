@@ -29,6 +29,8 @@ extern struct Cpu cpus[NCPU];
 extern int ncpu;                    // Total number of CPUs in the system
 extern struct Cpu *bootcpu;         // The boot-strap processor (BSP)
 extern volatile uint32_t *lapic;    // MMIO address to access the local-APIC
+extern volatile uint8_t  *e1000;    // MMIO address to access the e1000
+
 
 // Per-CPU kernel stacks
 extern unsigned char percpu_kstacks[NCPU][KSTKSIZE];

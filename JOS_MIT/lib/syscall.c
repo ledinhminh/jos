@@ -8,18 +8,18 @@ syscall(int num, int check, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 {
 	int32_t ret;
 	asm volatile("pushl %%ecx\n\t"
-		 "pushl %%edx\n\t"
-	         "pushl %%ebx\n\t"
-		 "pushl %%esp\n\t"
-		 "pushl %%ebp\n\t"
-		 "pushl %%esi\n\t"
-		 "pushl %%edi\n\t"
+                 "pushl %%edx\n\t"
+                 "pushl %%ebx\n\t"
+                 "pushl %%esp\n\t"
+                 "pushl %%ebp\n\t"
+                 "pushl %%esi\n\t"
+                 "pushl %%edi\n\t"
 				 
                  //Lab 3: Your code here
                  "movl %%esp,%%ebp\n\t"
                  "leal .after_sysenter_label, %%esi\n\t"
                  "sysenter\n\t"
-		  ".after_sysenter_label:\n\t"
+                 ".after_sysenter_label:\n\t"
 				 /* "pushl %%ebx\n\t" */
 				 /* "popf\n\t" */
                  "popl %%edi\n\t"
@@ -130,5 +130,17 @@ int
 sys_ipc_recv(void *dstva)
 {
 	return syscall(SYS_ipc_recv, 1, (uint32_t)dstva, 0, 0, 0, 0);
+}
+
+unsigned int
+sys_time_msec(void)
+{
+	return (unsigned int) syscall(SYS_time_msec, 0, 0, 0, 0, 0, 0);
+}
+
+int
+sys_net_try_send(void *data, size_t len)
+{
+  return syscall(SYS_net_try_send, 0, (uint32_t)data, len, 0, 0, 0);
 }
 

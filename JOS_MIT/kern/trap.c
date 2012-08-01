@@ -13,6 +13,7 @@
 #include <kern/picirq.h>
 #include <kern/cpu.h>
 #include <kern/spinlock.h>
+#include <kern/time.h>
 
 #define wrmsr(msr,val1,val2) \
 	__asm__ __volatile__("wrmsr" \
@@ -280,6 +281,20 @@ trap_dispatch(struct Trapframe *tf)
 	// Handle clock interrupts. Don't forget to acknowledge the
 	// interrupt using lapic_eoi() before calling the scheduler!
 	// LAB 4: Your code here.
+
+	// Add time tick increment to clock interrupts.
+	// Be careful! In multiprocessors, clock interrupts are
+	// triggered on every CPU.
+	// LAB 6: Your code here.
+	static int a = 0;
+	if (tf->tf_trapno == IRQ_OFFSET + IRQ_TIMER) {
+		/* cprintf("%x gen clock int\n", curenv->env_id); */
+		if (a == 0) {
+			time_tick();
+		}
+		a = (a + 1) % ncpu;
+	}
+
 	//print_trapframe(tf);
 	if (tf->tf_trapno == T_PGFLT)
 		page_fault_handler(tf);
@@ -415,7 +430,6 @@ page_fault_handler(struct Trapframe *tf)
 		}
 		else
 			utf = (struct UTrapframe *)(UXSTACKTOP - sizeof (struct UTrapframe));
-		cprintf("%s:page_fault_handler[%d]: [%x] with IF %x[%x]\n", __FILE__, __LINE__, curenv->env_id, tf->tf_eflags & FL_IF, read_eflags() & FL_IF);
 		user_mem_assert (curenv,(void*)utf,sizeof (struct UTrapframe),PTE_U|PTE_W);
 		
 		utf->utf_eflags = tf->tf_eflags;
@@ -427,8 +441,6 @@ page_fault_handler(struct Trapframe *tf)
 		utf->utf_regs = tf->tf_regs;
 		curenv->env_tf.tf_eip = (uint32_t) curenv->env_pgfault_upcall;
 		curenv->env_tf.tf_esp = (uint32_t) utf;
-		//cprintf("badfsdffffffffffffffffffsdfsdfsadg");
-		//print_trapframe(&curenv->env_tf);
 		env_run (curenv);
 	}
 	// Destroy the environment that caused the fault.
