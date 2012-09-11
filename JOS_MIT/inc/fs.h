@@ -57,6 +57,8 @@ struct Super {
 	uint32_t s_magic;		// Magic number: FS_MAGIC
 	uint32_t s_nblocks;		// Total number of blocks on disk
 	struct File s_root;		// Root directory node
+  uint32_t size;   // Size of file system image(blocks)
+  uint32_t nlog;   //Number of log blocks
 };
 
 // Definitions for requests from clients to file system

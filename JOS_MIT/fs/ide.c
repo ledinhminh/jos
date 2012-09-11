@@ -6,6 +6,7 @@
 
 #include "fs.h"
 #include <inc/x86.h>
+#include "buf.h"
 
 #define IDE_BSY		0x80
 #define IDE_DRDY	0x40
@@ -13,6 +14,11 @@
 #define IDE_ERR		0x01
 
 static int diskno = 1;
+
+static struct spinlock idelock;
+static struct buf *idequeue;
+static int havedisk1;
+
 
 static int
 ide_wait_ready(bool check_error)
@@ -32,6 +38,8 @@ ide_probe_disk1(void)
 {
 	int r, x;
 
+  spin_lock(&idelock, "ide");
+
 	// wait for Device 0 to be ready
 	ide_wait_ready(0);
 
@@ -41,7 +49,11 @@ ide_probe_disk1(void)
 	// check for Device 1 to be ready for a while
 	for (x = 0;
 	     x < 1000 && ((r = inb(0x1F7)) & (IDE_BSY|IDE_DF|IDE_ERR)) != 0;
-	     x++)
+	     x++){
+    if(inb(0x1F7) != 0){
+      havedisk1 = 1;
+      break;
+    }
 		/* do nothing */;
 
 	// switch back to Device 0
@@ -109,3 +121,31 @@ ide_write(uint32_t secno, const void *src, size_t nsecs)
 	return 0;
 }
 
+void
+iderw(struct buf *b)
+{
+  struct buf **pp;
+
+  if(!(b->flags & B_BUSY))
+    panic("iderw: buf not busy");
+  if((b->flags & (B_VALID|B_DIRTY)) == B_VALID)
+    panic("iderw: nothing to do");
+  if(b->dev != 0 && !havedisk1)
+    panic("iderw: ide disk 1 not present");
+
+  spin_lock(&idelock);
+  
+  b->qnext = 0;
+  for(pp=&idequeue; *pp; pp=&(*pp)->qnext)
+    ;
+  *pp = b;
+
+  if(idequeue == b)
+    ide_write(&b->sector, &b->data, SECTSIZE);
+
+  while((b->flags & (B_VALID|B_DIRTY)) != B_VALID){
+    sleep(b, &idelock);
+  }
+
+  spin_unlock(&idelock);
+}

@@ -17,6 +17,8 @@
 #include <kern/time.h>
 #include <kern/pci.h>
 
+#include <fs/fs.h>
+
 static void boot_aps(void);
 
 
@@ -53,8 +55,6 @@ i386_init(void)
 	// Lab 2 memory management initialization functions
 	mem_init();
 	// Lab 3 user environment initialization functions
-
-
 	env_init();
 	trap_init();
 
@@ -64,6 +64,9 @@ i386_init(void)
 
 	// Lab 4 multitasking initialization functions
 	pic_init();
+
+  // Lab 5 file system's buffer cache initialization functions
+  binit();
 
 	// Lab 6 hardware initialization functions
 	time_init();

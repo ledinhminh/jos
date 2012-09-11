@@ -15,7 +15,11 @@
 #include <kern/cpu.h>
 #include <kern/spinlock.h>
 
-struct Env *envs = NULL;		// All environments
+struct {
+  Env *envs = NULL;		// All environments
+  struct spinlock lock;
+}ptable;
+
 static struct Env *env_free_list;	// Free environment list
 					// (linked by Env->env_link)
 
@@ -132,6 +136,8 @@ env_init(void)
 	
 	// Per-CPU part of the initialization
 	env_init_percpu();
+
+  __spin_initlock(&ptable.lock, "ptable");
 }
 
 // Load GDT and segment descriptors.
@@ -572,3 +578,43 @@ env_run(struct Env *e)
 	panic("env_run not yet implemented");
 }
 
+void
+sleep(void *chan, struct spinlock *lk)
+{
+  if(envs == 0)
+    panic("sleep");
+  if(lk == 0)
+    panic("sleep without lk");
+  if(lk != &ptable.lock){
+    spin_lock(&ptable.lock);
+    spin_unlock(lk);
+  }
+
+  envs->chan = chan;
+  envs->env_status = ENV_SLEEPING;
+  sched_yield();
+
+  envs->chan = 0;
+
+  if(lk != &ptable.lock){
+    spin_unlock(&ptable.lock);
+    spin_lock(lk);
+  }
+}
+
+void
+wakeup1(void *chan)
+{
+  struct Env *p;
+  for(p = ptable.envs; p < &ptable.envs[NENV]; p++)
+    if(p->env_status == ENV_SLEEPING && p->chan == chan)
+      p->env_status = ENV_RUNNABLE;
+}
+
+void
+wakeup(void *chan)
+{
+  spin_lock(&ptable.lock);
+  wakeup1(chan);
+  spin_unlock(&ptable.lock);
+}

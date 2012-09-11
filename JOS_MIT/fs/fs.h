@@ -10,6 +10,9 @@
 
 /* Maximum disk size we can handle (3GB) */
 #define DISKSIZE	0xC0000000
+#define LOGSIZE   10
+#define BSIZE     512
+#define ROOTDEV   1
 
 struct Super *super;		// superblock
 uint32_t *bitmap;		// bitmap blocks mapped in memory
@@ -46,3 +49,14 @@ int	alloc_block(void);
 /* test.c */
 void	fs_test(void);
 
+/* log.c */
+void initlog(void);
+void begin_trans(void);
+void commit_trans(void);
+void log_write(struct buf *b);
+
+/* bio.c */
+void binit(void);
+struct buf* bread(uint32_t dev, uint32_t sector);
+void bwrite(struct buf *b);
+void brelse(struct buf *b);

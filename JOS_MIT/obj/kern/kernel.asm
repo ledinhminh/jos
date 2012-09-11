@@ -501,17 +501,15 @@ f01003d3:	c7 44 24 04 0b 97 01 	movl   $0x1970b,0x4(%esp)
 f01003da:	00 
 f01003db:	c7 04 24 25 57 1d f0 	movl   $0xf01d5725,(%esp)
 f01003e2:	e8 80 3d 00 00       	call   f0104167 <env_create>
-	ENV_CREATE(net_ns, ENV_TYPE_NS);
-#endif
 
-#if defined(TEST)
-	// Don't touch -- used by grading script!
-	ENV_CREATE(TEST, ENV_TYPE_USER);
-f01003e7:	c7 44 24 08 00 00 00 	movl   $0x0,0x8(%esp)
+#if !defined(TEST_NO_NS)
+	// Start ns.
+	ENV_CREATE(net_ns, ENV_TYPE_NS);
+f01003e7:	c7 44 24 08 03 00 00 	movl   $0x3,0x8(%esp)
 f01003ee:	00 
-f01003ef:	c7 44 24 04 f3 32 01 	movl   $0x132f3,0x4(%esp)
+f01003ef:	c7 44 24 04 d5 b0 04 	movl   $0x4b0d5,0x4(%esp)
 f01003f6:	00 
-f01003f7:	c7 04 24 17 63 21 f0 	movl   $0xf0216317,(%esp)
+f01003f7:	c7 04 24 0a 96 22 f0 	movl   $0xf022960a,(%esp)
 f01003fe:	e8 64 3d 00 00       	call   f0104167 <env_create>
 	//cprintf("%x\n",_pgfault_upcall);
 	//ENV_CREATE(user_yield, ENV_TYPE_USER);
