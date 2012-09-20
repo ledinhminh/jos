@@ -1,7 +1,7 @@
 00200010 R __STAB_BEGIN__
 00206490 R __STAB_END__
 00206491 R __STABSTR_BEGIN__
-0020ab0c R __STABSTR_END__
+0020ab79 R __STABSTR_END__
 00800020 T _start
 0080002c t args_exist
 00800040 t check_regs
@@ -104,11 +104,11 @@
 00802400 T nsipc_bind
 0080243f T nsipc_accept
 008024a0 T ipc_find_env
-008024e4 T ipc_send
-0080254f T ipc_recv
-008025dc T pageref
-00802620 T __udivdi3
-00802750 T __umoddi3
+008024e9 T ipc_send
+00802554 T ipc_recv
+008025e4 T pageref
+00802630 T __udivdi3
+00802760 T __umoddi3
 00802d20 r error_string
 00802e34 r devtab
 00803000 D binaryname
@@ -117,8 +117,8 @@
 00804000 b before
 00804040 b during
 00804080 b after
-008040ac b fsenv.1622
-008040b0 b nsenv.1621
+008040ac b fsenv.1626
+008040b0 b nsenv.1625
 008040b4 B thisenv
 008040b8 B _pgfault_handler
 00805000 B fsipcbuf

@@ -1,5 +1,6 @@
 
 #include "fs.h"
+#include <kern/spinlock.h>
 
 // Return the virtual address of this disk block.
 void*

@@ -21,16 +21,8 @@ obj/fs/bc.o: fs/bc.c fs/fs.h inc/fs.h inc/types.h inc/mmu.h inc/lib.h \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h
+ net/lwip/include/ipv4/lwip/inet.h fs/buf.h kern/spinlock.h
 obj/kern/entry.o: kern/entry.S inc/mmu.h inc/memlayout.h inc/trap.h
-obj/user/httpd.o: user/httpd.c inc/lib.h inc/types.h inc/stdio.h \
- inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
- inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
- inc/malloc.h inc/ns.h net/lwip/include/lwip/sockets.h \
- net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
- net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
- net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h
 obj/user/faultnostack.o: user/faultnostack.c inc/lib.h inc/types.h \
  inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h \
  inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h \
@@ -75,21 +67,13 @@ obj/lib/file.o: lib/file.c inc/fs.h inc/types.h inc/mmu.h inc/string.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
  net/lwip/include/ipv4/lwip/inet.h
-obj/user/echotest.o: user/echotest.c inc/lib.h inc/types.h inc/stdio.h \
- inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
- inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
- inc/malloc.h inc/ns.h net/lwip/include/lwip/sockets.h \
- net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
- net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
- net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h
 obj/kern/spinlock.o: kern/spinlock.c inc/types.h inc/assert.h inc/stdio.h \
  inc/stdarg.h inc/x86.h inc/memlayout.h inc/mmu.h inc/string.h kern/cpu.h \
  inc/env.h inc/trap.h kern/spinlock.h kern/kdebug.h
 obj/kern/pmap.o: kern/pmap.c inc/x86.h inc/types.h inc/mmu.h inc/error.h \
  inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h inc/queue.h \
  kern/pmap.h inc/memlayout.h kern/kclock.h kern/env.h inc/env.h \
- inc/trap.h kern/cpu.h
+ inc/trap.h kern/cpu.h kern/spinlock.h
 obj/net/lwip/core/ipv4/inet_chksum.o: net/lwip/core/ipv4/inet_chksum.c \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h inc/types.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
@@ -116,7 +100,7 @@ obj/lib/pgfault.o: lib/pgfault.c inc/lib.h inc/types.h inc/stdio.h \
 obj/kern/mpentry.o: kern/mpentry.S inc/mmu.h inc/memlayout.h
 obj/kern/sched.o: kern/sched.c inc/assert.h inc/stdio.h inc/stdarg.h \
  kern/env.h inc/env.h inc/types.h inc/trap.h inc/memlayout.h inc/mmu.h \
- kern/cpu.h kern/pmap.h kern/monitor.h inc/x86.h
+ kern/cpu.h kern/spinlock.h kern/pmap.h kern/monitor.h inc/x86.h
 obj/lib/spawn.o: lib/spawn.c inc/lib.h inc/types.h inc/stdio.h \
  inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
  inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
@@ -128,9 +112,9 @@ obj/lib/spawn.o: lib/spawn.c inc/lib.h inc/types.h inc/stdio.h \
 obj/lib/readline.o: lib/readline.c inc/stdio.h inc/stdarg.h inc/error.h
 obj/kern/syscall.o: kern/syscall.c inc/x86.h inc/types.h inc/error.h \
  inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h kern/env.h inc/env.h \
- inc/trap.h inc/memlayout.h inc/mmu.h kern/cpu.h kern/pmap.h kern/trap.h \
- kern/syscall.h inc/syscall.h kern/console.h kern/sched.h kern/time.h \
- kern/spinlock.h kern/pci.h kern/e1000.h kern/e1000_hw.h
+ inc/trap.h inc/memlayout.h inc/mmu.h kern/cpu.h kern/spinlock.h \
+ kern/pmap.h kern/trap.h kern/syscall.h inc/syscall.h kern/console.h \
+ kern/sched.h kern/time.h kern/pci.h kern/e1000.h kern/e1000_hw.h
 obj/net/lwip/core/ipv4/icmp.o: net/lwip/core/ipv4/icmp.c \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h inc/types.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
@@ -206,14 +190,6 @@ obj/lib/malloc.o: lib/malloc.c inc/lib.h inc/types.h inc/stdio.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
  net/lwip/include/ipv4/lwip/inet.h
-obj/user/pingpong.o: user/pingpong.c inc/lib.h inc/types.h inc/stdio.h \
- inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
- inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
- inc/malloc.h inc/ns.h net/lwip/include/lwip/sockets.h \
- net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
- net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
- net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h
 obj/lib/nsipc.o: lib/nsipc.c inc/ns.h inc/types.h inc/mmu.h \
  net/lwip/include/lwip/sockets.h net/lwip/include/lwip/opt.h \
  net/lwip/jos/lwipopts.h net/lwip/include/lwip/debug.h \
@@ -226,6 +202,14 @@ obj/kern/pci.o: kern/pci.c inc/x86.h inc/types.h inc/assert.h inc/stdio.h \
  inc/stdarg.h inc/string.h kern/pci.h kern/pcireg.h kern/e1000.h \
  inc/memlayout.h inc/mmu.h kern/e1000_hw.h kern/cpu.h inc/env.h \
  inc/trap.h
+obj/user/pingpong.o: user/pingpong.c inc/lib.h inc/types.h inc/stdio.h \
+ inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
+ inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
+ inc/malloc.h inc/ns.h net/lwip/include/lwip/sockets.h \
+ net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
+ net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
+ net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
+ net/lwip/include/ipv4/lwip/inet.h
 obj/net/lwip/jos/arch/sys_arch.o: net/lwip/jos/arch/sys_arch.c inc/lib.h \
  inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h \
  inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h \
@@ -244,16 +228,8 @@ obj/fs/ide.o: fs/ide.c fs/fs.h inc/fs.h inc/types.h inc/mmu.h inc/lib.h \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h inc/x86.h
+ net/lwip/include/ipv4/lwip/inet.h fs/buf.h inc/x86.h kern/spinlock.h
 obj/kern/printf.o: kern/printf.c inc/types.h inc/stdio.h inc/stdarg.h
-obj/user/echosrv.o: user/echosrv.c inc/lib.h inc/types.h inc/stdio.h \
- inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
- inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
- inc/malloc.h inc/ns.h net/lwip/include/lwip/sockets.h \
- net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
- net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
- net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h
 obj/user/faultbadhandler.o: user/faultbadhandler.c inc/lib.h inc/types.h \
  inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h \
  inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h \
@@ -285,7 +261,7 @@ obj/fs/fs.o: fs/fs.c inc/string.h inc/types.h fs/fs.h inc/fs.h inc/mmu.h \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h
+ net/lwip/include/ipv4/lwip/inet.h fs/buf.h
 obj/net/lwip/core/stats.o: net/lwip/core/stats.c \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h inc/types.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
@@ -301,14 +277,6 @@ obj/user/faultallocbad.o: user/faultallocbad.c inc/lib.h inc/types.h \
 obj/kern/lapic.o: kern/lapic.c inc/types.h inc/memlayout.h inc/mmu.h \
  inc/trap.h inc/stdio.h inc/stdarg.h inc/x86.h kern/pmap.h inc/assert.h \
  kern/cpu.h inc/env.h
-obj/user/testtime.o: user/testtime.c inc/lib.h inc/types.h inc/stdio.h \
- inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
- inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
- inc/malloc.h inc/ns.h net/lwip/include/lwip/sockets.h \
- net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
- net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
- net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h inc/x86.h
 obj/net/lwip/netif/etharp.o: net/lwip/netif/etharp.c \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h inc/types.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
@@ -358,12 +326,11 @@ obj/user/buggyhello.o: user/buggyhello.c inc/lib.h inc/types.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
  net/lwip/include/ipv4/lwip/inet.h
-obj/boot/boot.o: boot/boot.S inc/mmu.h
 obj/kern/trap.o: kern/trap.c inc/mmu.h inc/types.h inc/x86.h inc/assert.h \
  inc/stdio.h inc/stdarg.h kern/pmap.h inc/memlayout.h kern/trap.h \
  inc/trap.h kern/console.h kern/monitor.h kern/env.h inc/env.h kern/cpu.h \
- kern/syscall.h inc/syscall.h kern/sched.h kern/kclock.h kern/picirq.h \
- kern/spinlock.h kern/time.h
+ kern/spinlock.h kern/syscall.h inc/syscall.h kern/sched.h kern/kclock.h \
+ kern/picirq.h kern/time.h
 obj/kern/trapentry.o: kern/trapentry.S inc/mmu.h inc/memlayout.h \
  inc/trap.h kern/picirq.h
 obj/net/lwip/jos/jif/jif.o: net/lwip/jos/jif/jif.c inc/lib.h inc/types.h \
@@ -433,7 +400,7 @@ obj/fs/serv.o: fs/serv.c inc/x86.h inc/types.h inc/string.h fs/fs.h \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h
+ net/lwip/include/ipv4/lwip/inet.h fs/buf.h
 obj/user/testfile.o: user/testfile.c inc/lib.h inc/types.h inc/stdio.h \
  inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
  inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
@@ -451,12 +418,11 @@ obj/user/dumbfork.o: user/dumbfork.c inc/string.h inc/types.h inc/lib.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
  net/lwip/include/ipv4/lwip/inet.h
 obj/lib/string.o: lib/string.c inc/string.h inc/types.h
-obj/boot/main.o: boot/main.c inc/x86.h inc/types.h inc/elf.h
 obj/kern/init.o: kern/init.c inc/stdio.h inc/stdarg.h inc/string.h \
  inc/types.h inc/assert.h kern/monitor.h kern/console.h kern/pmap.h \
  inc/memlayout.h inc/mmu.h kern/kclock.h kern/env.h inc/env.h inc/trap.h \
- kern/cpu.h kern/trap.h kern/sched.h kern/picirq.h inc/x86.h \
- kern/spinlock.h kern/time.h kern/pci.h
+ kern/cpu.h kern/spinlock.h kern/trap.h kern/sched.h kern/picirq.h \
+ inc/x86.h kern/time.h kern/pci.h
 obj/net/lwip/core/raw.o: net/lwip/core/raw.c net/lwip/include/lwip/opt.h \
  net/lwip/jos/lwipopts.h inc/types.h net/lwip/include/lwip/debug.h \
  net/lwip/include/lwip/arch.h net/lwip/jos/arch/cc.h inc/assert.h \
@@ -515,6 +481,8 @@ obj/user/yield.o: user/yield.c inc/lib.h inc/types.h inc/stdio.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
  net/lwip/include/ipv4/lwip/inet.h
+obj/kern/printfmt.o: lib/printfmt.c inc/types.h inc/stdio.h inc/stdarg.h \
+ inc/string.h inc/error.h
 obj/user/faultread.o: user/faultread.c inc/lib.h inc/types.h inc/stdio.h \
  inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
  inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
@@ -523,8 +491,6 @@ obj/user/faultread.o: user/faultread.c inc/lib.h inc/types.h inc/stdio.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
  net/lwip/include/ipv4/lwip/inet.h
-obj/kern/printfmt.o: lib/printfmt.c inc/types.h inc/stdio.h inc/stdarg.h \
- inc/string.h inc/error.h
 obj/net/lwip/api/api_lib.o: net/lwip/api/api_lib.c \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h inc/types.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
@@ -553,32 +519,6 @@ obj/lib/syscall.o: lib/syscall.c inc/syscall.h inc/lib.h inc/types.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
  net/lwip/include/ipv4/lwip/inet.h
-obj/fs/fsformat: fs/fsformat.c /usr/include/assert.h \
- /usr/include/features.h /usr/include/bits/predefs.h \
- /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
- /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h \
- /usr/include/errno.h /usr/include/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/fcntl.h /usr/include/bits/fcntl.h /usr/include/sys/types.h \
- /usr/include/bits/types.h /usr/include/bits/typesizes.h \
- /usr/include/time.h /usr/lib/gcc/i686-linux-gnu/4.4.5/include/stddef.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/bits/byteswap.h /usr/include/sys/select.h \
- /usr/include/bits/select.h /usr/include/bits/sigset.h \
- /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/stat.h \
- /usr/include/inttypes.h /usr/include/stdint.h /usr/include/bits/wchar.h \
- /usr/lib/gcc/i686-linux-gnu/4.4.5/include/stdarg.h /usr/include/stdio.h \
- /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
- /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/stdlib.h /usr/include/bits/waitflags.h \
- /usr/include/bits/waitstatus.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/xlocale.h /usr/include/unistd.h \
- /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
- /usr/include/bits/confname.h /usr/include/getopt.h \
- /usr/include/sys/mman.h /usr/include/bits/mman.h /usr/include/sys/stat.h \
- inc/mmu.h inc/types.h inc/fs.h
 obj/user/fairness.o: user/fairness.c inc/lib.h inc/types.h inc/stdio.h \
  inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
  inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
@@ -697,7 +637,8 @@ obj/user/faultalloc.o: user/faultalloc.c inc/lib.h inc/types.h \
  net/lwip/include/ipv4/lwip/inet.h
 obj/kern/kdebug.o: kern/kdebug.c inc/stab.h inc/types.h inc/string.h \
  inc/memlayout.h inc/mmu.h inc/assert.h inc/stdio.h inc/stdarg.h \
- kern/kdebug.h kern/pmap.h kern/env.h inc/env.h inc/trap.h kern/cpu.h
+ kern/kdebug.h kern/pmap.h kern/env.h inc/env.h inc/trap.h kern/cpu.h \
+ kern/spinlock.h
 obj/user/faultevilhandler.o: user/faultevilhandler.c inc/lib.h \
  inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h \
  inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h \
@@ -730,6 +671,14 @@ obj/user/buggyhello2.o: user/buggyhello2.c inc/lib.h inc/types.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
  net/lwip/include/ipv4/lwip/inet.h
+obj/fs/log.o: fs/log.c fs/fs.h inc/fs.h inc/types.h inc/mmu.h inc/lib.h \
+ inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h \
+ inc/trap.h inc/memlayout.h inc/syscall.h inc/fd.h inc/args.h \
+ inc/malloc.h inc/ns.h net/lwip/include/lwip/sockets.h \
+ net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
+ net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
+ net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
+ net/lwip/include/ipv4/lwip/inet.h fs/buf.h kern/spinlock.h
 obj/user/forktree.o: user/forktree.c inc/lib.h inc/types.h inc/stdio.h \
  inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
  inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
@@ -792,7 +741,15 @@ obj/fs/test.o: fs/test.c inc/x86.h inc/types.h inc/string.h fs/fs.h \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
  net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h
+ net/lwip/include/ipv4/lwip/inet.h fs/buf.h
+obj/fs/bio.o: fs/bio.c fs/fs.h inc/fs.h inc/types.h inc/mmu.h inc/lib.h \
+ inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h \
+ inc/trap.h inc/memlayout.h inc/syscall.h inc/fd.h inc/args.h \
+ inc/malloc.h inc/ns.h net/lwip/include/lwip/sockets.h \
+ net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
+ net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
+ net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
+ net/lwip/include/ipv4/lwip/inet.h fs/buf.h kern/spinlock.h
 obj/user/writemotd.o: user/writemotd.c inc/lib.h inc/types.h inc/stdio.h \
  inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
  inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
@@ -803,8 +760,8 @@ obj/user/writemotd.o: user/writemotd.c inc/lib.h inc/types.h inc/stdio.h \
  net/lwip/include/ipv4/lwip/inet.h
 obj/kern/env.o: kern/env.c inc/x86.h inc/types.h inc/mmu.h inc/error.h \
  inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h inc/elf.h kern/env.h \
- inc/env.h inc/trap.h inc/memlayout.h kern/cpu.h kern/pmap.h kern/trap.h \
- kern/monitor.h kern/sched.h kern/spinlock.h
+ inc/env.h inc/trap.h inc/memlayout.h kern/cpu.h kern/spinlock.h \
+ kern/pmap.h kern/trap.h kern/monitor.h kern/sched.h
 obj/net/lwip/core/ipv4/ip_frag.o: net/lwip/core/ipv4/ip_frag.c \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h inc/types.h \
  net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
@@ -870,14 +827,6 @@ obj/kern/picirq.o: kern/picirq.c inc/assert.h inc/stdio.h inc/stdarg.h \
  inc/trap.h inc/types.h kern/picirq.h inc/x86.h
 obj/lib/ipc.o: lib/ipc.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h \
  inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
- inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
- inc/malloc.h inc/ns.h net/lwip/include/lwip/sockets.h \
- net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \
- net/lwip/include/lwip/debug.h net/lwip/include/lwip/arch.h \
- net/lwip/jos/arch/cc.h net/lwip/include/ipv4/lwip/ip_addr.h \
- net/lwip/include/ipv4/lwip/inet.h
-obj/user/init.o: user/init.c inc/lib.h inc/types.h inc/stdio.h \
- inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h \
  inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h \
  inc/malloc.h inc/ns.h net/lwip/include/lwip/sockets.h \
  net/lwip/include/lwip/opt.h net/lwip/jos/lwipopts.h \

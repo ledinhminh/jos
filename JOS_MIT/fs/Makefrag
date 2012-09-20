@@ -2,6 +2,8 @@
 OBJDIRS += fs
 
 FSOFILES := 		$(OBJDIR)/fs/ide.o \
+      $(OBJDIR)/fs/bio.o \
+      $(OBJDIR)/fs/log.o \
 			$(OBJDIR)/fs/bc.o \
 			$(OBJDIR)/fs/fs.o \
 			$(OBJDIR)/fs/serv.o \

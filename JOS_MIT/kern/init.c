@@ -17,7 +17,7 @@
 #include <kern/time.h>
 #include <kern/pci.h>
 
-#include <fs/fs.h>
+//#include <fs/fs.h>
 
 static void boot_aps(void);
 
@@ -66,7 +66,7 @@ i386_init(void)
 	pic_init();
 
   // Lab 5 file system's buffer cache initialization functions
-  binit();
+  //binit();
 
 	// Lab 6 hardware initialization functions
 	time_init();

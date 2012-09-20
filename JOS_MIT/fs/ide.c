@@ -6,7 +6,8 @@
 
 #include "fs.h"
 #include <inc/x86.h>
-#include "buf.h"
+#include <kern/spinlock.h>
+//#include <kern/env.h>
 
 #define IDE_BSY		0x80
 #define IDE_DRDY	0x40
@@ -18,7 +19,6 @@ static int diskno = 1;
 static struct spinlock idelock;
 static struct buf *idequeue;
 static int havedisk1;
-
 
 static int
 ide_wait_ready(bool check_error)
@@ -38,7 +38,7 @@ ide_probe_disk1(void)
 {
 	int r, x;
 
-  spin_lock(&idelock, "ide");
+//  __spin_initlock(&idelock, "ide");
 
 	// wait for Device 0 to be ready
 	ide_wait_ready(0);
@@ -54,6 +54,7 @@ ide_probe_disk1(void)
       havedisk1 = 1;
       break;
     }
+  }
 		/* do nothing */;
 
 	// switch back to Device 0
@@ -133,7 +134,7 @@ iderw(struct buf *b)
   if(b->dev != 0 && !havedisk1)
     panic("iderw: ide disk 1 not present");
 
-  spin_lock(&idelock);
+//  spin_lock(&idelock);
   
   b->qnext = 0;
   for(pp=&idequeue; *pp; pp=&(*pp)->qnext)
@@ -141,11 +142,11 @@ iderw(struct buf *b)
   *pp = b;
 
   if(idequeue == b)
-    ide_write(&b->sector, &b->data, SECTSIZE);
+    ide_write(b->sector, &b->data, SECTSIZE);
 
   while((b->flags & (B_VALID|B_DIRTY)) != B_VALID){
-    sleep(b, &idelock);
+//    sleep(b, &idelock);
   }
 
-  spin_unlock(&idelock);
+//  spin_unlock(&idelock);
 }

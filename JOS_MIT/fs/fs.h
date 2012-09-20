@@ -1,5 +1,6 @@
 #include <inc/fs.h>
 #include <inc/lib.h>
+#include "buf.h"
 
 #define SECTSIZE	512			// bytes per disk sector
 #define BLKSECTS	(BLKSIZE / SECTSIZE)	// sectors per block
@@ -22,6 +23,7 @@ bool	ide_probe_disk1(void);
 void	ide_set_disk(int diskno);
 int	ide_read(uint32_t secno, void *dst, size_t nsecs);
 int	ide_write(uint32_t secno, const void *src, size_t nsecs);
+void iderw(struct buf *b);
 
 /* bc.c */
 void*	diskaddr(uint32_t blockno);

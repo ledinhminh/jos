@@ -25,10 +25,10 @@ initlog(void)
   if(sizeof(struct logheader) >= BSIZE)
     panic("initlog: too big logheader");
 
-  __spin_initlock(&log.lock, "log");
+//  __spin_initlock(&log.lock, "log");
   super = diskaddr(1);
-  log.start = super.size - super.nlog;
-  log.size = super.nlog;
+  log.start = (*super).size - (*super).nlog;
+  log.size = (*super).nlog;
   log.dev = ROOTDEV;
   recover_from_log();
 }
@@ -64,7 +64,7 @@ static void
 write_head(void)
 {
   struct buf *buf = bread(log.dev, log.start);
-  struct logheader *hb = (struct lohheader *) (buf->data);
+  struct logheader *hb = (struct logheader *) (buf->data);
   int i;
   hb->n = log.lh.n;
   for(i = 0; i < log.lh.n; i++){
@@ -86,13 +86,12 @@ recover_from_log(void)
 void
 begin_trans(void)
 {
-  spin_lock(&log.lock);
+//  spin_lock(&log.lock);
   while(log.busy) {
-    //sleep
-    sleep(&log, &log.lock);
+//    sleep(&log, &log.lock);
   }
   log.busy = 1;
-  spin_unlock(&log.lock);
+//  spin_unlock(&log.lock);
 }
 
 void
@@ -104,11 +103,10 @@ commit_trans(void)
     log.lh.n = 0;
     write_head();
   }
-  spin_lock(&log.lock);
+//  spin_lock(&log.lock);
   log.busy = 0;
-  //wakeup
-  wakeup(&log);
-  spin_unlock(&log.lock);
+//  wakeup(&log);
+//  spin_unlock(&log.lock);
 }
 
 void
@@ -124,7 +122,7 @@ log_write(struct buf *b)
       break;
   }
   log.lh.sector[i] = b->sector;
-  struct buf *lbuf = bread(b->data, log.start+i+1);
+  struct buf *lbuf = bread(b->dev, log.start+i+1);
   memmove(lbuf->data, b->data, BSIZE);
   bwrite(lbuf);
   brelse(lbuf);

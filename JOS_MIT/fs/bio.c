@@ -1,5 +1,4 @@
 #include "fs.h"
-#include "buf.h"
 #include <kern/spinlock.h>
 
 #define NBUF  10
@@ -14,7 +13,7 @@ void
 binit(void)
 {
   struct buf *b;
-  __spin_initlock(&bcache.lock, "bcache");
+//  __spin_initlock(&bcache.lock, "bcache");
   //PAGEBREAK!
   //Create linked list of buffer cache
   bcache.head.prev = &bcache.head;
@@ -32,14 +31,14 @@ static struct buf*
 bget(uint32_t dev, uint32_t sector)
 {
   struct buf *b;
-  spin_lock(&bcache.lock);
+//  spin_lock(&bcache.lock);
   
 loop:
   for(b = bcache.head.next; b != &bcache.head; b = b->next){
     if(b->dev == dev && b->sector == sector){
       if(!(b->flags |= B_BUSY)){
         b->flags |= B_BUSY;
-        spin_unlock(&bcache.lock);
+//        spin_unlock(&bcache.lock);
         return b;
       }
       //sleep(b, &bcache.lock);
@@ -51,7 +50,7 @@ loop:
       b->dev = dev;
       b->sector = sector;
       b->flags = B_BUSY;
-      spin_unlock(&bcache.lock);
+//      spin_unlock(&bcache.lock);
       return b;
     }
   }
@@ -64,8 +63,8 @@ bread(uint32_t dev, uint32_t sector)
   struct buf *b;
   b = bget(dev, sector);
   if(!(b->flags & B_VALID))
-    //iderw(b);
     iderw(b);
+  return b;
 }
 
 void
@@ -74,7 +73,6 @@ bwrite(struct buf *b)
   if((b->flags & B_BUSY) == 0)
     panic("bwrite");
   b->flags |= B_DIRTY;
-  //iderw(b);
   iderw(b);
 }
 
@@ -83,7 +81,7 @@ brelse(struct buf *b)
 {
   if((b->flags & B_BUSY) == 0)
     panic("brelse");
-  spin_lock(&bcache.lock);
+//  spin_lock(&bcache.lock);
   b->next->prev = b->prev;
   b->prev->next = b->next;
   b->next = bcache.head.next;
@@ -94,6 +92,5 @@ brelse(struct buf *b)
   b->flags &= ~B_BUSY;
 
   //wakeup(b);
-  wakeup(b);
-  spin_unlock(&bcache.lock);
+//  spin_unlock(&bcache.lock);
 }
